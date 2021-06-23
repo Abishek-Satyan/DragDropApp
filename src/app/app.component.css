@@ -33,13 +33,7 @@
     background-color: #fff;
     color: #000;
   }
-  .show-btn{
-    
-  }
-  .show-btn:hover{
-    background-color: #fff;
-    color: #000;
-  }
+  
 
   .cdk-drag-preview {
     box-sizing: border-box;

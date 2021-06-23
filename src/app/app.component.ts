@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { getLocaleDateFormat } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -10,29 +11,77 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class AppComponent {
   title = 'dragdropApp';
-  showTodo=false
+ 
   taskForm=this.fb.group({
     task:['',(Validators.required)]
   })
-  movies = [];
-  constructor(private fb:FormBuilder) {}
+  taskid
+  currentindex
+  Todos = [];
+  constructor(private fb:FormBuilder,private http:HttpClient) {
+    this.showData()
+  }
 
   drop(event: CdkDragDrop<string[]>) {
-    console.log(event.currentIndex)
-    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
-    console.log(event.container.data[event.currentIndex])
   
+    moveItemInArray(this.Todos, event.previousIndex, event.currentIndex);
+    const draggedelement =event.container.data[event.currentIndex]
+    const draggedelementindex=event.currentIndex
+    const swappedelement=event.container.data[event.previousIndex]
+    const swappedelementindex=event.previousIndex
+    const selement= swappedelement["Task"]
+    const selementindex=swappedelementindex
+    const delement=draggedelement["Task"]
+    const delementindex=draggedelementindex
+    const data={
+      delement,
+      delementindex,
+      selement,
+      selementindex
+    }
+   this.http.post("http://localhost:3000/updateDatabase",data).subscribe((result:any)=>{
+    if(result){
+      alert("Database updated")
+      window.location.reload();
+    }
+    })
   }
-  getData(){
-    
+  addData(){
+    const task=this.taskForm.value.task
+    const taskid=this.taskid
+    const currentindex=this.currentindex
     if(!this.taskForm.valid){
     alert("task field cannot be empty")
     }
     else{
-      console.log(this.taskForm.value.task)
+      const data={
+        task,
+        taskid,
+        currentindex
+      }
+      this.http.post("http://localhost:3000/addData",data).subscribe((result:any)=>{
+        if(result){
+          alert("task added succesfully")
+          window.location.reload();
+        }
+        },(result)=>{
+         alert(result.error.message)
+        })
     }
   }
   showData(){
-    this.showTodo=!this.showTodo
+    this.http.post("http://localhost:3000/showData","").subscribe((result:any)=>{
+        if(result){
+         this.Todos=result.todolist
+         if(this.Todos.length==0){
+           this.taskid=1
+           this.currentindex=0
+         }
+         else{
+           this.taskid=this.Todos.length+1
+           this.currentindex=this.Todos.length
+         }
+        }
+        })
   }
 }

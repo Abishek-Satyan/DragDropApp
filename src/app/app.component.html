@@ -3,25 +3,25 @@
 <form [formGroup]="taskForm">
 <div class="input-group mb-3">
   <input type="text" class="form-control" placeholder="Enter Task" aria-label="Task" formControlName="task">
-  <button class="btn btn-dark login-button save-btn" type="button" (click)="getData()">Save</button>
+  <button class="btn btn-dark login-button save-btn" type="button" (click)="addData()">Save</button>
 </div>
 </form>
-<button class="btn btn-dark login-button show-btn" type="button" (click)="showData()">Show all Todos</button>
+
 </div>
 
 <div class="table-container">   
-<table class=" table table-dark table-striped table-hover" *ngIf="showTodo">
+<table class=" table table-dark table-striped table-hover" >
   <thead>
     <tr>
       <th>Todo id</th>
       <th>Todo</th>
     </tr>
   </thead>
-  <tbody cdkDropList [cdkDropListData]="movies" (cdkDropListDropped)="drop($event)">
-    <tr class="row-box" cdkDrag  *ngFor="let todo of todos">
+  <tbody cdkDropList [cdkDropListData]="Todos" (cdkDropListDropped)="drop($event)">
+    <tr class="row-box" cdkDrag  *ngFor="let todo of Todos">
       
-      <td >{{todo}}</td>
-      <td>{{todo}}</td>
+      <td >{{todo.Taskid}}</td>
+      <td>{{todo.Task}}</td>
       
     </tr>
   </tbody>
