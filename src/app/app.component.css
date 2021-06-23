@@ -33,7 +33,9 @@
     background-color: #fff;
     color: #000;
   }
-  
+  .info-text{
+    color:#fff;
+  }
 
   .cdk-drag-preview {
     box-sizing: border-box;
