@@ -33,6 +33,8 @@ export class AppComponent {
     const selementindex=swappedelementindex
     const delement=draggedelement["Task"]
     const delementindex=draggedelementindex
+    console.log(selementindex)
+    console.log(delementindex)
     const data={
       delement,
       delementindex,
@@ -42,7 +44,7 @@ export class AppComponent {
    this.http.post("http://localhost:3000/updateDatabase",data).subscribe((result:any)=>{
     if(result){
       alert("Database updated")
-      window.location.reload();
+      
     }
     })
   }
