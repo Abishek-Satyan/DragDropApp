@@ -18,7 +18,7 @@
       <th>Todo</th>
     </tr>
   </thead>
-  <tbody cdkDropList [cdkDropListData]="Todos" (cdkDropListDropped)="drop($event)">
+  <tbody cdkDropList  (cdkDropListDropped)="drop($event)">
     <tr class="row-box" cdkDrag  *ngFor="let todo of Todos">
       
       <td >{{todo.Taskid}}</td>
