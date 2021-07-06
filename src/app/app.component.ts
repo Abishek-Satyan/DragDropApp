@@ -30,9 +30,9 @@ export class AppComponent {
     const swappedelement=event.container.data[event.previousIndex]
     const swappedelementindex=event.previousIndex
     const selement= swappedelement["Task"]
-    const selementindex=swappedelementindex
+  
     const delement=draggedelement["Task"]
-    const delementindex=draggedelementindex
+    
     console.log(selementindex)
     console.log(delementindex)
     const data={
